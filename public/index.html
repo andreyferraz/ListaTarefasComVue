@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Tarefas</title>
+  </head>
+  <body>
+    <div id="app">
+      <form @submit.prevent="createTarefa()">
+        <input type="text" placeholder="Tarefa" v-model="form.text" />
+
+        <label class="checkbox-input">
+          {{ form.done == true ? 'Concluída' : 'Não concluída'}}
+          <input type="checkbox" v-model="form.done" :checked="form.done" />
+          <span class="checkmark"></span>
+        </label>
+
+        <button type="submit">Adicionar</button>
+      </form>
+
+      <ul class="todos">
+        <span class="todos-title">Tarefas</span>
+
+        <li :class="['todo', { done: tarefa.done }]" v-for="tarefa in tarefas">
+          <label class="checkbox-input" @click="toggleTarefaStatus(tarefa)">
+            <input type="checkbox" :checked="tarefa.done" />
+            <span class="checkmark"></span>
+          </label>
+          <span class="todo-text"> {{tarefa.text}} </span>
+          <a class="todo-delete" @click="destroyTarefa(tarefa.id)"></a>
+        </li>
+       
+      </ul>
+    </div>
+    <script src="./bundle.js"></script>
+  </body>
+</html>
